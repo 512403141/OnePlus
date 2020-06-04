@@ -1,144 +1,106 @@
-const gulp = require("gulp");
-//html
-gulp.task("copy-html",function(){
-	return gulp.src("./*.html")
-	.pipe(gulp.dest("dist/"))
-	.pipe(connect.reload());
-})
-/*
- gulp.task() 创建任务的
-    gulp.src()  找文件源路径
-    pipe() 管道
-    gulp.dest() 目的路径
-*/
-gulp.task("images",function(){
-	return gulp.src("img/*.{jpg,png}")
-	.pipe(gulp.dest("dist/images"))
-	.pipe(connect.reload());
-})
-// 
-gulp.task("data",function(){
-	return gulp.src(["json/*.json","!package.json"])
-	.pipe(gulp.dest("dist/data"))
-	.pipe(connect.reload());
-})
-gulp.task("scripts", function(){
-    return gulp.src(["js/*.js", "!gulpfile.js"])
-    .pipe(gulp.dest("dist/js"))
-    .pipe(connect.reload());
-})
-gulp.task("api",function(){
-	return gulp.src("api/*.php")
-	.pipe(gulp.dest("dist/api"))
-	.pipe(connect.reload());
-})
-const scss = require("gulp-sass")
-const minifyCSS = require("gulp-minify-css");
-const rename = require("gulp-rename");
+let gulp = require("gulp");
 
-gulp.task("scss1",function(){
-	return gulp.src("css/index.scss")
-	.pipe(scss())
-	.pipe(gulp.dest("dist/css"))
-	.pipe(minifyCSS())
-	.pipe(rename("index.min.css"))
-	.pipe(gulp.dest("dist/css"))
-	.pipe(connect.reload());
-})
-gulp.task("scss2", function(){
-    return gulp.src("css/login.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("login.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-gulp.task("scss3", function(){
-    return gulp.src("css/public.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("./dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("public.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-gulp.task("scss4", function(){
-    return gulp.src("css/register.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("register.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-gulp.task("scss5", function(){
-    return gulp.src("css/detail.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("detail.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-gulp.task("scss6", function(){
-    return gulp.src("css/header.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("header.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-gulp.task("scss7", function(){
-    return gulp.src("css/footer.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("footer.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-gulp.task("iconfont", function(){
-    return gulp.src("css/iconfont.scss")
-    .pipe(scss())
-    .pipe(gulp.dest("dist/css"))
-    .pipe(minifyCSS())
-    .pipe(rename("iconfont.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(connect.reload());
-})
-//将上面所有的任务执行一遍，在监听之前，将所有的任务，先去执行一遍
-gulp.task("build", ["api","copy-html",'images', "scripts", "data", "scss1", "scss2", "scss3", "scss4","scss5","scss6","scss7","iconfont"], function(){
-    console.log("项目建立成功");
-})
+// gulp.task()
+//   功能：定义任务
+//   参数：
+//     任务名：
+//     回调函数：任务对应的功能(函数)，当在命令行中执行 gulp 任务名时，会调用该回调函数
 
-//设置监听，设置服务，同时启动监听和服务
-gulp.task("watch", function(){
-    gulp.watch("./*.html", ['copy-html']);
-    gulp.watch("img/*.{jpg,png}", ['images']);
-    gulp.watch(["json/.json", "!package.json"], ['data']);
-    gulp.watch(["js/*.js", "!gulpfile.js"], ['scripts']);
-    gulp.watch("css/index.scss", ['scss1']);
-    gulp.watch("css/login.scss", ['scss2']);
-	gulp.watch("css/public.scss", ['scss3']);
-	gulp.watch("css/register.scss", ['scss4']);
-	gulp.watch("css/detail.scss", ['scss5']);
-	gulp.watch("css/header.scss", ['scss6']);
-	gulp.watch("css/footer.scss", ['scss7']);
-	gulp.watch("css/iconfont.css", ['iconfont']);
-	gulp.watch("api/*.php", ['api']);
-})
+gulp.task("copy-index",async ()=>{
+    //gulp.src(): 复制的来源，即源文件
+    // pipe()：管道
+    //  gulp.dest()：目的地，即：把源文件复制到什么地方    
+    gulp.src("./*.html")
+   .pipe(gulp.dest("d:\\phpstudy\\www\\OnePlus"));
+});
 
-const connect = require("gulp-connect");
-gulp.task("server", function(){
-    connect.server({
-        root: "dist",
-        port: 8888,
-        livereload: true
-    })
-})
+gulp.task("copy-php",async ()=>{
+    //gulp.src(): 复制的来源，即源文件
+    // pipe()：管道
+    //  gulp.dest()：目的地，即：把源文件复制到什么地方    
+    gulp.src("./*.php")
+   .pipe(gulp.dest("d:\\phpstudy\\www\\OnePlus"));
+});
 
-//设置默认任务
-gulp.task("default", ["watch", 'server']);
+gulp.task("copy-css",async ()=>{
+    //gulp.src(): 复制的来源，即源文件
+    // pipe()：管道
+    //  gulp.dest()：目的地，即：把源文件复制到什么地方    
+    gulp.src("./css/*.css")
+   .pipe(gulp.dest("d:\\phpstudy\\www\\OnePlus\\css"));
+});
+gulp.task("copy-img",async ()=>{
+    //gulp.src(): 复制的来源，即源文件
+    // pipe()：管道
+    //  gulp.dest()：目的地，即：把源文件复制到什么地方    
+    
+gulgulp.src("./img/*.{img,png,svg,ico}")
+   .pipe(gulp.dest("d:\\phpstudy\\www\\OnePlus\\img"));
+});gulp.task("copy-js",async ()=>{
+    //gulp.src(): 复制的来源，即源文件
+    // pipe()：管道
+    //  gulp.dest()：目的地，即：把源文件复制到什么地方    
+    gulp.src("./js/*.js")
+   .pipe(gulp.dest("d:\\phpstudy\\www\\OnePlus\\js"));
+});
+gulp.task("copy-phph",async ()=>{
+    //gulp.src(): 复制的来源，即源文件
+    // pipe()：管道
+    //  gulp.dest()：目的地，即：把源文件复制到什么地方    
+    gulp.src("./php/*.php")
+   .pipe(gulp.dest("d:\\phpstudy\\www\\OnePlus\\php"));
+});
 
+
+ gulp.task("watchall",async function(){
+     // html
+     gulp.watch("*.html", async function(){
+         gulp.src("*.html").pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus"));
+     });
+     //css
+     gulp.watch("css/**/*", async function(){
+         gulp.src("css/**/*").pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus\\css"));
+     });
+     //js
+     gulp.watch("js/**/*", async function(){
+         gulp.src("js/**/*").pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus\\js"));
+     });
+     //img
+     gulp.watch("img/**/*", async function(){
+         gulp.src("img/**/*").pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus\\img"));
+     });
+     //php
+     gulp.watch("*.php", async function(){
+         gulp.src("*.php").pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus"));
+     });
+     // scss
+     gulp.watch("scss/*.scss", async function(){
+         gulp.src("scss/*.scss")
+         .pipe(sass())
+         .pipe(gulp.dest("D:\\OnePlus\\css"));
+     });
+ 
+     gulp.watch("./src/css/*.css",async ()=>{
+         gulp.src("./src/css/*.css")
+         .pipe(cssmin())
+         .pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus\\js"));
+     })
+ 
+     //  合并并压缩
+     gulp.watch("./js/*.js",async ()=>{
+         gulp.src(["./js/index.js","./js/goodslist.js"])
+         .pipe(concat("index.js"))
+         .pipe(uglify())
+         .pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus\\js"));
+     })
+ 
+     // es6转ES5
+ 
+     gulp.watch("./js/index.js",async ()=>{
+         gulp.src(["./js/index.js"])
+         .pipe(babel({
+             presets: ['@babel/env']
+         }))
+         .pipe(gulp.dest("D:\\phpStudy\\WWW\\OnePlus\\js"));
+     })
+ 
